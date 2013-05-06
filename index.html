@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+	<title>Trouve-moi un Vélo'v</title>
+	<script src="géolocalisation.js"></script>
+</head>
+<body onload="initialize()">
+
+<h1>Trouve-moi un Vélo'v</h1>
+<p>Je suis détecté comme étant ici :
+
+<ul>
+	<li>latitude : <span id=latitude></span>
+	<li>longitude : <span id=longitude></span>
+	<li>timestamp : <span id=timestamp></span>
+	<li>altitude : <span id=altitude></span>
+	<li>accuracy : <span id=accuracy></span>
+	<li>altitudeAccuracy : <span id=altitudeAccuracy></span>
+	<li>heading : <span id=heading></span>
+	<li>speed : <span id=speed></span>
+</ul>
+
+<p><em>Attention</em> : depuis une connexion filaire (ADSL, etc.) la géolocalisation est assez imprécise. Pour un bon résultat, utilisez une connexion GSM.
+
+<form method=post action=trouver-velov.php>
+	<input type=hidden id=formLatitude name=formLatitude>
+	<input type=hidden id=formLongitude name=formLongitude>
+	<input type=hidden id=formTimestamp name=formTimestamp>
+	<input type=hidden id=formAltitude name=formAltitude>
+	<input type=hidden id=formAccuracy name=formAccuracy>
+	<input type=hidden id=formAltitudeAccuracy name=formAltitudeAccuracy>
+	<input type=hidden id=formHeading name=formHeading>
+	<input type=hidden id=formSpeed name=formSpeed>
+
+	<button autofocus>Trouver le Vélo'v libre le plus proche</button>
+
+</body>
+</html>

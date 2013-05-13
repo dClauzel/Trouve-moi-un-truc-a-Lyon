@@ -18,3 +18,4 @@ Pour cloner le démonstrateur, vous **DEVEZ** créer un fichier de configuration
    $Google = "YYYYY";
 ?>
 ```
+Il existe une [instance d'exemple](https://serveur.clauzel.eu/~ltp/trouve-moi-un-velov/) (sur IPv6).

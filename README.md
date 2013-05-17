@@ -35,3 +35,5 @@ Pour cloner le démonstrateur, vous **DEVEZ** créer un fichier de configuration
 ?>
 ```
 Il existe une [instance d'exemple](https://serveur.clauzel.eu/~ltp/Trouve-moi un truc à Lyon/) (sur IPv6).
+
+Par [Damien Clauzel](http://Damien.Clauzel.eu), [@dClauzel](https://Twitter.com/dClauzel), sous licence GPLv3.

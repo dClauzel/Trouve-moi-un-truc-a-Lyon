@@ -13,7 +13,7 @@ echo "			} // fin initialize()
 </ul>
 	<div id='map-canvas'></div>
 <br>
-
+<p><small><a href='http://dclauzel.github.io/Trouve-moi-un-truc-a-Lyon/'>Sources sur GitHub</a> — par <a href='http://Damien.Clauzel.eu'>Damien Clauzel</a> — <a href='https://Twitter.com/dClauzel'>@dClauzel</a> — sous licence GPLv3</small>
 </body>
 </html>";
 

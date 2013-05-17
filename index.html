@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
 <head>
-	<title>Trouve-moi un Vélo'v</title>
+	<title>Trouve-moi un truc à Lyon</title>
 	<script src="géolocalisation.js"></script>
 </head>
 <body onload="initialize()">
 
-<h1>Trouve-moi un Vélo'v</h1>
+<h1>Trouve-moi un truc à Lyon</h1>
 <p>Je suis détecté comme étant ici :
 
 <ul>
@@ -22,7 +22,7 @@
 
 <p><em>Attention</em> : depuis une connexion filaire (ADSL, etc.) la géolocalisation est assez imprécise. Pour un bon résultat, utilisez une connexion GSM.
 
-<form method=post action=trouver-velov.php>
+<form>
 	<input type=hidden id=formLatitude name=formLatitude>
 	<input type=hidden id=formLongitude name=formLongitude>
 	<input type=hidden id=formTimestamp name=formTimestamp>
@@ -32,7 +32,11 @@
 	<input type=hidden id=formHeading name=formHeading>
 	<input type=hidden id=formSpeed name=formSpeed>
 
-	<button autofocus>Trouver le Vélo'v libre le plus proche</button>
+<ul>
+	<li><button type="submit" formmethod=post formaction="Vélov/trouver-velov.php">Trouver le vélo'v libre le plus proche</button> (données JCDecaux)
+	<li><button type="submit" formmethod=post formaction="Silos verre/trouver-silos-verre.php">Trouver le silo à verre le plus proche</button> (données du <abbr title="Grand Lyon">GL</abbr>)
+</ul>
+</form>
 
 </body>
 </html>

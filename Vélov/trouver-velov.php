@@ -1,7 +1,8 @@
 <?php
 
-require_once 'fonctions.php';
-require_once 'clés-api.php';
+require_once '../fonctions.php'; // fonctions génériques (calcul de distance, etc)
+require_once '../clés-api.php'; // clés pour authentification sur les API
+require_once 'JCDecauxFonctions.php'; // fonctions spécifiques aux données de JCDecaux
 
 // récupération des données du formulaire
 
@@ -16,7 +17,6 @@ $speed = $_REQUEST['formSpeed'];
 
 
 // récupération des données de JCDecaux
-//$fData = fopen("stations.json", "r");
 $fData = fopen("https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=$JCDecaux", "r");
 
 while (!feof($fData))
@@ -70,14 +70,14 @@ $DonneesVelov = json_decode($data, true);
 
 
 // tri des stations selon la plus petite distance par rapport à la position de l'utilisateur
-usort($DonneesVelov, "CompareStationDistance");
+usort($DonneesVelov, "JCDecauxCompareStationDistance");
 
 // liste les 3 stations intéressantes les plus proches et les affiche avec un marqueur
 $NbStationsOK=0;
 $i=0;
 while($NbStationsOK<3) {
-	if(StationValide($DonneesVelov[$i]) == true) {
-		echo "document.getElementById('station$NbStationsOK').innerHTML = '". StationAffiche($DonneesVelov[$i]). "';\n";
+	if(JCDecauxStationValide($DonneesVelov[$i]) == true) {
+		echo "document.getElementById('station$NbStationsOK').innerHTML = '". JCDecauxStationAffiche($DonneesVelov[$i]). "';\n";
 		echo "var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(" .$DonneesVelov[$i]['position']['lat']. "," .$DonneesVelov[$i]['position']['lng']. "),
 			map: map,

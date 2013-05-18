@@ -3,6 +3,7 @@
 echo "<!DOCTYPE html>
 <html>
 	<head>
+		<meta charset='utf-8'>
 		<title>Trouve-moi un truc à Lyon</title>
 		<meta name='viewport' content='initial-scale=1.0, user-scalable=no'>
 		<style type='text/css'>

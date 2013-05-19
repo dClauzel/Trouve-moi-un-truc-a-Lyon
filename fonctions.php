@@ -7,8 +7,16 @@ bcscale(32); // définition de la précision pour ces 'loperies de floats…
  * retourne : distance
  */
 function distance($latitude1, $longitude1, $latitude2, $longitude2) {
-	//return sqrt( pow($latitude2-$latitude1,2) + pow($longitude2-$longitude1,2) );
-	return bcsqrt( bcadd( bcpow(bcsub($latitude2,$latitude1),2) , bcpow(bcsub($longitude2,$longitude1),2) ) );
+	$earth_radius = 6378137;   // Terre = sphère de 6378km de rayon
+	$rla1 = deg2rad($latitude1);
+	$rlo1 = deg2rad($longitude1);
+	$rla2 = deg2rad($latitude2);
+	$rlo2 = deg2rad($longitude2);
+	$dla = ($rla2 - $rla1) / 2;
+	$dlo = ($rlo2 - $rlo1) / 2;
+	$a = (sin($dla) * sin($dla)) + cos($rla1) * cos($rla2) * (sin($dlo) * sin($dlo));
+	$d = 2 * atan2(sqrt($a), sqrt(1 - $a));
+	return ($earth_radius * $d);
 }
 
 

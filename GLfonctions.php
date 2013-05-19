@@ -11,10 +11,7 @@ function GL_CompareDistance($point1, $point2) {
 	$distance1 = distance($latitude, $longitude, $point1["geometry"]['coordinates'][0], $point1["geometry"]['coordinates'][1]);
 	$distance2 = distance($latitude, $longitude, $point2["geometry"]['coordinates'][0], $point2["geometry"]['coordinates'][1]);
 
-	if ($distance1 == $distance2)
-		return 0;
-
-	return ($distance1 < $distance2) ? -1 : 1;
+	return bccomp($distance1, $distance2);
 }
 
 // affiche en liste les données d'une borne fontaine

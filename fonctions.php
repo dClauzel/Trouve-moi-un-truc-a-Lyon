@@ -1,12 +1,16 @@
 <?php
 
+bcscale(32); // définition de la précision pour ces 'loperies de floats…
+
 /* Calcule la distance à vol d'oiseau entre 2 positions géographiques
  * latitude1,longitude1,latitude2,longitude2 : coordonnées décimales
  * retourne : distance
  */
 function distance($latitude1, $longitude1, $latitude2, $longitude2) {
-	return sqrt( pow($latitude2-$latitude1,2) + pow($longitude2-$longitude1,2) );
+	//return sqrt( pow($latitude2-$latitude1,2) + pow($longitude2-$longitude1,2) );
+	return bcsqrt( bcadd( bcpow(bcsub($latitude2,$latitude1),2) , bcpow(bcsub($longitude2,$longitude1),2) ) );
 }
+
 
 // récupération des données du formulaire pour en faire des variables globales
 

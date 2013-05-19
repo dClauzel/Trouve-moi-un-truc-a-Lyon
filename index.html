@@ -41,7 +41,11 @@
 <li>les <a href="https://developer.JCDecaux.com/#/opendata/">API de JCDecaux</a>, pour les vélos en libre service ;</li>
 <li>les <a href="http://catalogue.data.GrandLyon.com/">API du Grand Lyon</a>, pour les données urbaines ;</li>
 <li>les <a href="https://developers.google.com/maps/documentation/javascript/reference">API javaScript de Google Maps</a>, pour l'affichage.</li>
-</ul><p>Prérequis côté serveur :</p>
+</ul><p>Il existe une <a href="https://serveur.clauzel.eu/%7Eltp/Trouve-moi%20un%20truc%20%C3%A0%20Lyon/">instance d'exemple</a> (sur IPv6).</p>
+
+<h1>Prérequis</h1>
+
+<p>Prérequis côté serveur :</p>
 
 <ul>
 <li>
@@ -60,7 +64,9 @@
 <li>php 5.4.4 ;</li>
 <li>gdal 1.9.0 ;</li>
 <li>chromium 26.0.1410.43, Firefox 22.0a2.</li>
-</ul><p>Pour cloner le démonstrateur, vous <strong>DEVEZ</strong> créer un fichier de configuration « clés-api.php », contenant vos clés des API :</p>
+</ul><h1>Déployer les outils sur son serveur</h1>
+
+<p>Pour cloner le démonstrateur, vous <strong>DEVEZ</strong> créer un fichier de configuration « clés-api.php », contenant vos clés des API :</p>
 
 <div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// clés-api.php</span>
@@ -69,7 +75,21 @@
 <span class="cp">?&gt;</span><span class="x"></span>
 </pre></div>
 
-<p>Il existe une <a href="https://serveur.clauzel.eu/%7Eltp/Trouve-moi%20un%20truc%20%C3%A0%20Lyon/">instance d'exemple</a> (sur IPv6).</p>
+<p>Le script trouver-vélov-proche-silo-verre.php utilise une Moulinette Infernale (complexité O(n.m)), sans antémémoire et avec un algo naïf. Apache et PHP vont timeouter, il faut donc ajuster leurs configurations :</p>
+
+<ul>
+<li>dans php.ini : max_execution_time = 600</li>
+<li>dans apache :
+
+<ul>
+<li>Timeout 300</li>
+<li>FcgidProcessLifeTime 7200</li>
+<li>FcgidIOTimeout  7200</li>
+<li>FcgidConnectTimeout 600</li>
+<li>FcgidIdleTimeout 600</li>
+</ul>
+</li>
+</ul><h1>Licence</h1>
 
 <p>Par <a href="http://Damien.Clauzel.eu">Damien Clauzel</a>, <a href="https://Twitter.com/dClauzel">@dClauzel</a>, sous licence GPLv3.</p>
         </section>

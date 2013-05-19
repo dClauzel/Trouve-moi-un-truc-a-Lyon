@@ -27,7 +27,7 @@ while($NbResultats<3) {
 	echo "var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(" .$Donnees["features"][$i]["geometry"]["coordinates"][0]. "," .$Donnees["features"][$i]["geometry"]["coordinates"][1]. "),
 		map: map,
-		title:'" .$Donnees["features"][$i]["properties"]["voie"]. "'
+		title: \"" .$Donnees["features"][$i]["properties"]["voie"]. "\"
 		});\n";
 	$NbResultats++;
 	$i++;

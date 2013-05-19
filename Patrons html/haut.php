@@ -31,7 +31,7 @@ echo "<!DOCTYPE html>
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 				// Marqueur bleu pour dire où on est
-				blueIcon = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
+				blueIcon = 'https://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
 
 				var marker = new google.maps.Marker({
 					position: new google.maps.LatLng($latitude, $longitude),

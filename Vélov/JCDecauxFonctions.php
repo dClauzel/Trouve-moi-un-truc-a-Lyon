@@ -11,10 +11,7 @@ function JCDecauxCompareStationDistance($station1, $station2) {
 	$distance1 = distance($latitude, $longitude, $station1["position"]["lat"], $station1["position"]["lng"]);
 	$distance2 = distance($latitude, $longitude, $station2["position"]["lat"], $station2["position"]["lng"]);
 
-	if ($distance1 == $distance2)
-		return 0;
-
-	return ($distance1 < $distance2) ? -1 : 1;
+	return bccomp($distance1, $distance2);
 }
 
 // affiche en liste les données sur une station

@@ -47,7 +47,7 @@ Le script trouver-vélov-proche-silo-verre.php utilise une Moulinette Infernale 
 
 * dans php.ini : max_execution_time = 600
 * dans apache :
-    * Timeout 300, 
+    * Timeout 300
     * FcgidProcessLifeTime 7200
     * FcgidIOTimeout  7200
     * FcgidConnectTimeout 600

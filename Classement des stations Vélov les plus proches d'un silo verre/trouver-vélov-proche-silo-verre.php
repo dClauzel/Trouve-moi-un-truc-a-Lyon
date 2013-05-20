@@ -17,7 +17,7 @@ unlink($tmpfile);
 $DonneesVelov = json_decode(file_get_contents("https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=$JCDecaux"), true);
 
 // init (crade) des variables qui contiendront notre résultat
-$PlusPetiteDistante=666;
+$PlusPetiteDistante=66666;
 $PlusPetiteStationVelov;
 $PlusPetitSiloVerre;
 
@@ -41,7 +41,7 @@ foreach ($DonneesVelov as $station) {
 		$DistanceTmp = distance($station['position']['lat'], $station['position']['lng'],$silo["geometry"]["coordinates"][0],$silo["geometry"]["coordinates"][1]);
 		
 		// on conserve le couple station-silo qui a la plus petite distante
-		if( bccomp($DistanceTmp,$PlusPetiteDistante) < 1 ) {
+		if( bccomp($DistanceTmp,$PlusPetiteDistante) == -1) {
 			$PlusPetiteDistante = $DistanceTmp;
 			$PlusPetiteStationVelov = $station;
 			$PlusPetitSiloVerre = $silo;

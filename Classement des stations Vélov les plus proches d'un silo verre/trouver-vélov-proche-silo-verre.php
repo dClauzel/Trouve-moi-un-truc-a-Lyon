@@ -55,9 +55,9 @@ require_once '../Patrons html/haut.php';
 
 	echo "document.getElementById('resultat0').innerHTML = '". JCDecauxStationAffiche($PlusPetiteStationVelov). "';\n";
 	echo "var marker = new google.maps.Marker({
-			position: new google.maps.LatLng(" .$station['position']['lat']. "," .$station['position']['lng']. "),
+			position: new google.maps.LatLng(" .$PlusPetiteStationVelov['position']['lat']. "," .$PlusPetiteStationVelov['position']['lng']. "),
 			map: map,
-			title:\"" .$station['name']. "\"
+			title:\"" .$PlusPetiteStationVelov['name']. "\"
 		});\n";
 
 	echo "document.getElementById('resultat1').innerHTML = '". GL_SiloVerre_Affiche($PlusPetitSiloVerre). "';\n";

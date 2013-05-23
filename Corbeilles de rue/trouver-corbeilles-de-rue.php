@@ -8,7 +8,7 @@ require_once '../GLfonctions.php'; // fonctions spécifiques aux données du GL
 Idéalement devrait utiliser https://github.com/geonef/php5-gdal/ (ne fonctionne pas) ou swig de la lib gdal pour créer un module php (erreur de compilation), mais faute de mieux on passe par un appel à un outil externe.
 */
 $tmpfile = uniqid(sys_get_temp_dir()."/SILO-VERRE_");
-`ogr2ogr -f GeoJSON $tmpfile WFS:http://ogc.data.grandlyon.com/gdlyon?SERVICE=WFS gic_collecte.gicsiloverre`;
+`ogr2ogr -f GeoJSON $tmpfile WFS:http://ogc.data.grandlyon.com/gdlyon?SERVICE=WFS gin_nettoiement.gincorbeille`;
 $Donnees = json_decode(file_get_contents($tmpfile), true);
 unlink($tmpfile);
 
@@ -23,7 +23,7 @@ usort($Donnees["features"], "GL_CompareDistance");
 $NbResultats=0;
 $i=0;
 while($NbResultats<3) {
-	echo "document.getElementById('resultat$NbResultats').innerHTML = '". GL_SiloVerre_Affiche($Donnees["features"][$i]). "';\n";
+	echo "document.getElementById('resultat$NbResultats').innerHTML = '". GL_Corbeille_Affiche($Donnees["features"][$i]). "';\n";
 	echo "var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(" .$Donnees["features"][$i]["geometry"]["coordinates"][0]. "," .$Donnees["features"][$i]["geometry"]["coordinates"][1]. "),
 		map: map,

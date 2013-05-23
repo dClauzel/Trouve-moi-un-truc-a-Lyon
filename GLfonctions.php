@@ -31,7 +31,7 @@ function GL_BorneFontaine_Affiche($station) {
 	$res .= "</ul>";
 	$res .= "</ul>";
 
-	return $res;
+	return addslashes($res);
 }
 
 // affiche en liste les données sur un silo verre
@@ -55,7 +55,12 @@ function GL_SiloVerre_Affiche($station) {
 	$res .= "</ul>";
 	$res .= "</ul>";
 
-	return $res;
+	return addslashes($res);
+}
+
+// affiche en liste les données sur une corbeille de rue
+function GL_Corbeille_Affiche($station) {
+	return GL_SiloVerre_Affiche($station);
 }
 
 ?>

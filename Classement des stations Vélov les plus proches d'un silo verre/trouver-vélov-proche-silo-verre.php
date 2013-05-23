@@ -57,14 +57,14 @@ require_once '../Patrons html/haut.php';
 	echo "var marker = new google.maps.Marker({
 			position: new google.maps.LatLng(" .$PlusPetiteStationVelov['position']['lat']. "," .$PlusPetiteStationVelov['position']['lng']. "),
 			map: map,
-			title:\"" .$PlusPetiteStationVelov['name']. "\"
+			title: '" .addslashes($PlusPetiteStationVelov['name']). "'
 		});\n";
 
 	echo "document.getElementById('resultat1').innerHTML = '". GL_SiloVerre_Affiche($PlusPetitSiloVerre). "';\n";
 	echo "var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(" .$PlusPetitSiloVerre["geometry"]["coordinates"][0]. "," .$PlusPetitSiloVerre["geometry"]["coordinates"][1]. "),
 		map: map,
-		title: \"" .$PlusPetitSiloVerre["properties"]["voie"]. "\"
+		title: '" .addslashes($PlusPetitSiloVerre["properties"]["voie"]). "'
 		});\n";
 
 	echo "document.getElementById('resultat2').innerHTML = 'Distance entre la station Vélov et le silo verre : $PlusPetiteDistante';\n";

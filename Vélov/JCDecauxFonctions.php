@@ -35,7 +35,7 @@ function JCDecauxStationAffiche($station) {
 	$res .= "</ul>";
 	$res .= "</ul>";
 
-	return $res;
+	return addslashes($res);
 }
 
 /* retour vrai si la station est intéressante

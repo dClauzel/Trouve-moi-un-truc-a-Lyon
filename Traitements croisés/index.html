@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+	<title>Traitements croisés</title>
+	<meta charset='utf-8'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="../Ressources/géolocalisation.js"></script>
+	<script src="../Ressources/sélecteur/sélecteur.js"></script>
+	<link rel=stylesheet href='../Ressources/style général.css'>
+	<link rel=stylesheet href='../Ressources/sélecteur/sélecteur.css'>
+</head>
+<body onload="initialize()">
+
+<h1>Ma géolocalisation</h1>
+<p>Je suis détecté comme étant ici :
+
+<ul>
+	<li>latitude : <span id=latitude></span>
+	<li>longitude : <span id=longitude></span>
+	<li>altitude : <span id=altitude></span>
+	<li>précision : <span id=accuracy></span>
+	<li>précision de l'altitude : <span id=altitudeAccuracy></span>
+	<li>direction : <span id=heading></span>
+	<li>vitesse : <span id=speed></span>
+	<li>heure du relevé de positionnement : <span id=timestamp></span>
+</ul>
+<p><em>Attention</em> : depuis une connexion filaire (ADSL, etc.) la géolocalisation est assez imprécise. Pour un bon résultat, utilisez une connexion GSM.
+
+<hr>
+<h1>Traitements croisés</h1>
+<p><em>Attention</em> : en fonctions des demandes et de l'état des antémémoires, certaines requêtes peuvent nécessiter plusieurs minutes pour aboutir.
+<form>
+	<input type=hidden id=formLatitude name=formLatitude>
+	<input type=hidden id=formLongitude name=formLongitude>
+	<input type=hidden id=formTimestamp name=formTimestamp>
+	<input type=hidden id=formAltitude name=formAltitude>
+	<input type=hidden id=formAccuracy name=formAccuracy>
+	<input type=hidden id=formAltitudeAccuracy name=formAltitudeAccuracy>
+	<input type=hidden id=formHeading name=formHeading>
+	<input type=hidden id=formSpeed name=formSpeed>
+	
+<div class=outil>
+	<P>Je veux <button type=submit formmethod=post formaction="Classement des stations Vélov les plus proches d'un silo verre/trouver-vélov-proche-silo-verre.php">trouver la station Vélov la plus proche d'un silo à verre</button> (données de JCDecaux croisées avec celles du <abbr title="Grand Lyon">GL</abbr>) — faites un zoom arrière pour voir la position
+</div>
+
+<p><small><a href='http://dclauzel.github.io/Trouve-moi-un-truc-a-Lyon/'>Sources sur GitHub</a> — par <a href='http://Damien.Clauzel.eu'>Damien Clauzel</a> — <a href='https://Twitter.com/dClauzel'>@dClauzel</a> — sous licence GPLv3</small>
+</form>
+</body>
+</html>

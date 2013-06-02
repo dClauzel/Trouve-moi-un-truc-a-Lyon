@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<title>Traitement sur les données du Grand Lyon</title>
+	<meta charset='utf-8'>
+	<script src="../Ressources/géolocalisation.js"></script>
+	<link rel=stylesheet href='../Ressources/style général.css'>
+</head>
+<body onload="initialize()">
+
+<h1>Ma géolocalisation</h1>
+<p>Je suis détecté comme étant ici :
+
+<ul>
+	<li>latitude : <span id=latitude></span>
+	<li>longitude : <span id=longitude></span>
+	<li>altitude : <span id=altitude></span>
+	<li>précision : <span id=accuracy></span>
+	<li>précision de l'altitude : <span id=altitudeAccuracy></span>
+	<li>direction : <span id=heading></span>
+	<li>vitesse : <span id=speed></span>
+	<li>heure du relevé de positionnement : <span id=timestamp></span>
+</ul>
+<p><em>Attention</em> : depuis une connexion filaire (ADSL, etc.) la géolocalisation est assez imprécise. Pour un bon résultat, utilisez une connexion GSM.
+
+<hr>
+<h1>Traitements sur les données du Grand Lyon</h1>
+<form>
+	<input type=hidden id=formLatitude name=formLatitude>
+	<input type=hidden id=formLongitude name=formLongitude>
+	<input type=hidden id=formTimestamp name=formTimestamp>
+	<input type=hidden id=formAltitude name=formAltitude>
+	<input type=hidden id=formAccuracy name=formAccuracy>
+	<input type=hidden id=formAltitudeAccuracy name=formAltitudeAccuracy>
+	<input type=hidden id=formHeading name=formHeading>
+	<input type=hidden id=formSpeed name=formSpeed>
+	
+<div class=outil>
+	<P>Je veux <button type=submit formmethod=post formaction="Silos verre/trouver-silos-verre.php">trouver le silo à verre le plus proche</button>.
+</div>
+
+<div class=outil>
+	<P>Je veux <button type=submit formmethod=post formaction="Bornes fontaine/trouver-bornes-fontaine.php">trouver la fontaine potable la plus proche</button>.  <em>faites un zoom arrière, il y en a peu</em>
+</div>
+
+<div class=outil>
+	<P>Je veux <button type=submit formmethod=post formaction="Corbeilles de rue/trouver-corbeilles-de-rue.php">trouver la corbeille de rue la plus proche</button>.
+</div>
+
+</form>
+<h1>Mise à jour manuelle des données</h1>
+<div class=outil>
+	<p><button type=submit formmethod=post formaction="Bornes fontaine/GL actualiser liste des bornes fontaines.php">Actualiser la liste des bornes fontaines</button>
+</div>
+
+<div class=outil>
+	<p><button type=submit formmethod=post formaction="Corbeilles de rue/GL actualiser liste des corbeilles de rue.php">Actualiser la liste des corbeilles de rue</button>
+</div>
+
+<div class=outil>
+	<p><button type=submit formmethod=post formaction="Silos verre/GL actualiser liste des silos verre.php">Actualiser la liste des silos verre</button>
+</div>
+
+<p><small><a href='http://dclauzel.github.io/Trouve-moi-un-truc-a-Lyon/'>Sources sur GitHub</a> — par <a href='http://Damien.Clauzel.eu'>Damien Clauzel</a> — <a href='https://Twitter.com/dClauzel'>@dClauzel</a> — sous licence GPLv3</small>
+</body>
+</html>

@@ -1,0 +1,42 @@
+body {
+	width: 90%;
+	margin: 80px auto;
+}
+
+/*
+ * Zone contenant un outil (texte, widget de paramétrage, bouton)
+ */
+.outil {
+	border-style: solid;
+	border-color: snow;
+	background-color: GhostWhite;
+	padding: 1em;	
+}
+
+pre {
+	border-style: dashed;
+	border-width: 5px;
+	border-color: linen;
+	background-color: LightYellow;
+	padding: 1em;	
+}
+
+/*
+ * Alternance de la couleurs des lignes de tableau
+ */
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #EEE}
+
+
+/*
+ * Pour la carte Google Maps
+ */
+html { height: 100% }
+body { height: 100% }
+#map-canvas {
+	width: 50%;
+	height: 50%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}

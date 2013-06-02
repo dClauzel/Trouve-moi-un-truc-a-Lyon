@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<title>Traitement sur les Vélo'v</title>
+	<meta charset='utf-8'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="../Ressources/géolocalisation.js"></script>
+	<script src="../Ressources/sélecteur/sélecteur.js"></script>
+	<link rel=stylesheet href='../Ressources/style général.css'>
+	<link rel=stylesheet href='../Ressources/sélecteur/sélecteur.css'>
+</head>
+<body onload="initialize()">
+
+<h1>Ma géolocalisation</h1>
+<p>Je suis détecté comme étant ici :
+
+<ul>
+	<li>latitude : <span id=latitude></span>
+	<li>longitude : <span id=longitude></span>
+	<li>altitude : <span id=altitude></span>
+	<li>précision : <span id=accuracy></span>
+	<li>précision de l'altitude : <span id=altitudeAccuracy></span>
+	<li>direction : <span id=heading></span>
+	<li>vitesse : <span id=speed></span>
+	<li>heure du relevé de positionnement : <span id=timestamp></span>
+</ul>
+<p><em>Attention</em> : depuis une connexion filaire (ADSL, etc.) la géolocalisation est assez imprécise. Pour un bon résultat, utilisez une connexion GSM.
+
+<hr>
+<h1>Traitements sur les Vélo'v</h1>
+<form>
+	<input type=hidden id=formLatitude name=formLatitude>
+	<input type=hidden id=formLongitude name=formLongitude>
+	<input type=hidden id=formTimestamp name=formTimestamp>
+	<input type=hidden id=formAltitude name=formAltitude>
+	<input type=hidden id=formAccuracy name=formAccuracy>
+	<input type=hidden id=formAltitudeAccuracy name=formAltitudeAccuracy>
+	<input type=hidden id=formHeading name=formHeading>
+	<input type=hidden id=formSpeed name=formSpeed>
+	
+<!-- interface de sélection prise — puis adaptée — depuis http://css-tricks.com/value-bubbles-for-range-inputs/ -->
+<div class=outil>
+	<p>Dans un rayon de
+	<span class=sélecteur>
+		<input id=distanceDemandee name=distanceDemandee type=range min=0 max=15000 value=600 style="width: 40%;">
+      <output for=distanceDemandee>1</output>
+	</span>
+	mètres autour de moi, je veux <button type="submit" formmethod=post formaction="trouver-stations-velov.php">trouver les stations Vélo'v</button>.
+</div>
+
+<div class=outil>
+	<p>Je veux <button type=submit formmethod=post formaction=trouver-station-bonus.php>trouver les stations Vélo'v donnant un bonus de temps</button>.
+</div>
+
+<div class=outil>
+	<p>Je veux <button type=submit formmethod=post formaction=trouver-station-fermée.php>trouver les stations Vélo'v actuellement fermées</button>.
+</div>
+
+<div class=outil>
+	<p>Je veux <button type=submit formmethod=post formaction=trouver-velov-libre-proche.php>trouver le vélo'v libre le plus proche</button>.
+</div>
+
+<div class=outil>
+	<p>Je veux <button type=submit formmethod=post formaction=trouver-station-libre-proche.php>trouver la station libre la plus proche</button>.
+</div>
+
+</form>
+
+<h1>Mise à jour manuelle des données</h1>
+<div class=outil>
+	<p><button type=submit formmethod=post formaction="Vélov actualiser liste des stations.php">Actualiser liste des stations Vélo'v</button>
+</div>
+
+<div class=outil>
+	<p><button type=submit formmethod=post formaction="Vélov actualiser état du réseau.php">Actualiser l'état du réseau Vélo'v</button>
+</div>
+
+<p><small><a href='http://dclauzel.github.io/Trouve-moi-un-truc-a-Lyon/'>Sources sur GitHub</a> — par <a href='http://Damien.Clauzel.eu'>Damien Clauzel</a> — <a href='https://Twitter.com/dClauzel'>@dClauzel</a> — sous licence GPLv3</small>
+</body>
+</html>

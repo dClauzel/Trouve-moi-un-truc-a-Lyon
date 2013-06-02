@@ -1,0 +1,13 @@
+<?php
+
+// clés des API
+$JCDecaux = "666";
+$Google = "42";
+
+// accès au serveur postgresql
+$BD_host = 'mon-serveur';
+$BD_user = 'mamotte';
+$BD_passwd = 'papier d'alu';
+$BD_base = 'MaTablePourTravaillerAvecLesDonnées';
+
+?>

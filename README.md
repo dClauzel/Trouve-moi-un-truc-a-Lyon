@@ -16,8 +16,10 @@ Prérequis
 =========
 
 Prérequis côté serveur :
+* serveur web ;
 * [ogr2ogr de GDAL](http://www.gdal.org/) ([paquet gdal-bin sur Debian](apt://gdal-bin)) ;
-* php >= 5.4, avec possibilité d'exécuter des commandes externes.
+* php >= 5.4, avec possibilité d'exécuter des commandes externes ;
+* postgis >= 1.5, avec postgresql >= 9.1 ([paquet postgresql-9.1-postgis sur Debian](apt://postgresql-9.1-postgis)).
 
 Prérequis côté client :
 * navigateur web à jour ;
@@ -28,22 +30,15 @@ Développé avec :
 * apache 2.2.22 ;
 * php 5.4.4 ;
 * gdal 1.9.0 ;
+* postgresql 9.1 et postgis 1.5 ;
 * chromium 26.0.1410.43, Firefox 22.0a2.
 
 Déployer les outils sur son serveur
 ===================================
 
-Pour cloner le démonstrateur, vous **DEVEZ** créer un fichier de configuration « clés-api.php », contenant vos clés des API :
+Pour cloner le démonstrateur, vous **DEVEZ** renseigner un fichier de configuration « config.php », contenant vos clés des API et les accès à la base de données.
 
-```php
-<?php
-// clés-api.php
-   $JCDecaux = "XXXXXXX";
-   $Google = "YYYYY";
-?>
-```
-
-Le script trouver-vélov-proche-silo-verre.php utilise une Moulinette Infernale (complexité O(n.m)), sans antémémoire et avec un algo naïf. Apache et PHP vont timeouter, il faut donc ajuster leurs configurations :
+Certains outils utilisent des requêtes sql qui peuvent prendre un certain temps à se terminer. Il est alors possible que les PHP timeout. Si c'est le cas, ajustez les configurations d'apache et de PHP :
 
 * dans php.ini : max_execution_time = 600
 * dans apache :

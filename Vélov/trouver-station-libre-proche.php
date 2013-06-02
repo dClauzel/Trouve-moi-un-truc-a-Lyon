@@ -16,7 +16,7 @@ require_once '../Ressources/fonctionsGénériques.php';
 <?php 
 
 
-# Configure
+// Configure
 $BD_table = 'velovEtatReseau';
 
 $dbconn = pg_connect("host=$BD_host dbname=$BD_base user=$BD_user password=$BD_passwd")

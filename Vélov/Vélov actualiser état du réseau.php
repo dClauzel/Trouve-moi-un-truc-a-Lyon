@@ -15,6 +15,9 @@ else
 	$dbconn = pg_connect("host=$BD_host dbname=$BD_base user=$BD_user password=$BD_passwd")
 		or die('Impossible de se connecter à la base : ' . pg_last_error());
 
+echo "<p>OK, j'ai les données\n";
+ob_flush(); flush();
+
 // suppression des anciennes données
 $query = "DROP TABLE IF EXISTS $BD_table";
 pg_query($dbconn, $query);
@@ -46,6 +49,8 @@ pg_query($dbconn, $query);
 $query = "create index ".$BD_table."_index on $BD_table using gist (geom);";
 pg_query($dbconn, $query);
 
+echo "<p>insertion en cours…";
+ob_flush(); flush();
 
 // insertion
 foreach($DonneesVelov as $s) {
@@ -72,7 +77,9 @@ foreach($DonneesVelov as $s) {
 
 	pg_query($dbconn, "INSERT INTO $BD_table
 		(number, name, address, banking, bonus, status, bike_stands, available_bike_stands, available_bikes, last_update, geom)
-		VALUES ('$number', '$name', '$address', '$banking', '$bonus', '$status', '$bike_stands', '$available_bike_stands', '$available_bikes', TO_TIMESTAMP($last_update / 1000), ST_Transform(ST_GeomFromText('POINT($longitude $latitude)',4326),3857))")
+		VALUES ('$number', '$name', '$address', '$banking', '$bonus', '$status', '$bike_stands', '$available_bike_stands', '$available_bikes', TO_TIMESTAMP($last_update / 1000), ST_Transform(ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), 3857))")
 			or die("Erreur durant l'insertion de la station dans la base : ".pg_last_error());
 }
+echo " fini !\n";
+
 ?>

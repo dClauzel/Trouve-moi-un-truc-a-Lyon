@@ -15,10 +15,6 @@ require_once '../../Ressources/fonctionsGénériques.php';
 
 <?php 
 
-
-# Configure
-$BD_table = 'velovStations, GLsilosVerre';
-
 $dbconn = pg_connect("host=$BD_host dbname=$BD_base user=$BD_user password=$BD_passwd")
 	or die('Impossible de se connecter à la base : ' . pg_last_error());
 
@@ -31,10 +27,17 @@ $query = "SELECT
 	GLSilosVerre.voie,
 	GLSilosVerre.numerodansvoie,
 	ST_Distance( ST_GeomFromEWKB(velovStations.geom), ST_GeomFromEWKB(GLSilosVerre.geom) )
-FROM $BD_table
+
+FROM
+	VelovStations
+JOIN
+	GLsilosVerre
+ON
+	-- on restreint la recherche aux silos verre dans un rayon de 100 mètres autour de chaque station vélov 
+	ST_Dwithin(VelovStations.geom, GLsilosVerre.geom, 100)
 
 ORDER BY ST_Distance
-LIMIT 3 ;
+LIMIT 10 ;
 ";
 
 $resultat = pg_query($dbconn, $query);

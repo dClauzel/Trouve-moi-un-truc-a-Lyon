@@ -48,6 +48,13 @@ Certains outils utilisent des requêtes sql qui peuvent prendre un certain temps
     * FcgidConnectTimeout 600
     * FcgidIdleTimeout 600
 
+
+Création de base et de l'utilisateur postgresql
+===============================================
+
+[Procédure pour Debian](http://marcusjenkins.com/linux/install-postgresql-9-1-and-postgis-1-5-x-on-ubuntu-11-10/)
+
+
 Licence
 =======
 

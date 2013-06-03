@@ -30,7 +30,7 @@ $query = "SELECT
 	bike_stands,
 	ST_Y(ST_Transform(geom,4326)),
 	ST_X(ST_Transform(geom,4326)),
-	ST_Distance( ST_Transform(ST_GeomFromText('POINT($longitude $latitude)',4326),3857), ST_GeomFromEWKB(geom) )
+	ST_Distance( ST_Transform(ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), 3857), ST_GeomFromEWKB(geom) )
 FROM $BD_table
 
 WHERE status != 'OPEN'

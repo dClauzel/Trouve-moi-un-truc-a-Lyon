@@ -1,6 +1,16 @@
+<!doctype html>
+<html>
+<head>
+	<title>Mise à jour de la base</title>
+	<meta charset='utf-8'>
+	<link rel=stylesheet href='../Ressources/style général.css'>
+</head>
+<body>
+
 <?php 
 
 require_once '../config.php';
+require_once '../Ressources/fonctionsGénériques.php';
 
 // accès à la base
 
@@ -20,10 +30,12 @@ ob_flush(); flush();
 
 // suppression des anciennes données
 $query = "DROP TABLE IF EXISTS $BD_table";
-pg_query($dbconn, $query);
+pg_query($dbconn, $query)
+		or die('Impossible de droper la base : ' . pg_last_error());
 
 $query = "DROP INDEX IF EXISTS ".$BD_table."_index;";
-pg_query($dbconn, $query);
+pg_query($dbconn, $query)
+		or die('Impossible de droper l\'index : ' . pg_last_error());
 
 // création de la structure
 $query = "CREATE TABLE $BD_table (
@@ -38,16 +50,17 @@ $query = "CREATE TABLE $BD_table (
 	available_bikes integer,
 	last_update timestamp,
 	geom geometry,
+
 	CONSTRAINT ".$BD_table."_pkey PRIMARY KEY (number),
-
-	CONSTRAINT enforce_dims_geom CHECK (ndims(geom) = 2),
+	CONSTRAINT enforce_dims_geom CHECK (ST_ndims(geom) = 2),
 	CONSTRAINT enforce_geotype_geom CHECK (geometrytype(geom) = 'POINT'::text OR geom IS NULL),
-	CONSTRAINT enforce_srid_geom CHECK (srid(geom) = 3857)
-);";
-pg_query($dbconn, $query);
+	CONSTRAINT enforce_srid_geom CHECK (ST_srid(geom) = 3857)
+);
 
-$query = "create index ".$BD_table."_index on $BD_table using gist (geom);";
-pg_query($dbconn, $query);
+CREATE INDEX ".$BD_table."_index ON $BD_table USING gist (geom);
+";
+pg_query($dbconn, $query)
+		or die('Impossible de créer la table : ' . pg_last_error());
 
 echo "<p>insertion en cours…";
 ob_flush(); flush();
@@ -80,6 +93,12 @@ foreach($DonneesVelov as $s) {
 		VALUES ('$number', '$name', '$address', '$banking', '$bonus', '$status', '$bike_stands', '$available_bike_stands', '$available_bikes', TO_TIMESTAMP($last_update / 1000), ST_Transform(ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), 3857))")
 			or die("Erreur durant l'insertion de la station dans la base : ".pg_last_error());
 }
-echo " fini !\n";
 
+echo " fini !\n";
 ?>
+
+<h1>Technique</h1>
+<p>La base a été mise à jour avec la requête suivante :
+<pre><code><?php echo securise($query); ?></code></pre>
+</body>
+</html>

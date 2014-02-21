@@ -115,6 +115,19 @@ var marker = new google.maps.Marker({
 	icon: blueIcon,
 	title: 'Je suis ici'
 });
+
+var zone = {
+	strokeColor: 'linen',
+	strokeOpacity: 0.8,
+	strokeWeight: 2,
+	fillColor: 'LightYellow',
+	fillOpacity: 0.15,
+	map: map,
+	center: new google.maps.LatLng(<?php echo "$latitude, $longitude"; ?>),
+	radius: <?php echo $distanceDemandee; ?>,
+};
+cityCircle = new google.maps.Circle(zone);
+
 } // fin initialize()
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>

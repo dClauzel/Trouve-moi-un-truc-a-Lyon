@@ -1,6 +1,15 @@
-<?php 
+<!doctype html>
+<html>
+<head>
+	<title>Mise à jour de la base</title>
+	<meta charset='utf-8'>
+	<link rel=stylesheet href='../../Ressources/style général.css'>
+</head>
+<body>
 
+<?php 
 require_once '../../config.php';
+require_once '../../Ressources/fonctionsGénériques.php';
 
 /* récupération des données du GL
 Idéalement devrait utiliser https://github.com/geonef/php5-gdal/ (ne fonctionne pas) ou swig de la lib gdal pour créer un module php (erreur de compilation), mais faute de mieux on passe par un appel à un outil externe.
@@ -44,15 +53,15 @@ $query = "CREATE TABLE $BD_table (
 	miseajourattributs timestamp,
 	miseajourgeometrie timestamp,
 	geom geometry,
-	CONSTRAINT ".$BD_table."_pkey PRIMARY KEY (gid),
 
+	CONSTRAINT ".$BD_table."_pkey PRIMARY KEY (gid),
 	CONSTRAINT enforce_dims_geom CHECK (ndims(geom) = 2),
 	CONSTRAINT enforce_geotype_geom CHECK (geometrytype(geom) = 'POINT'::text OR geom IS NULL),
 	CONSTRAINT enforce_srid_geom CHECK (srid(geom) = 3857)
-);";
-pg_query($dbconn, $query);
+);
 
-$query = "create index ".$BD_table."_index on $BD_table using gist (geom);";
+CREATE INDEX ".$BD_table."_index ON $BD_table using gist (geom);
+";
 pg_query($dbconn, $query);
 
 echo "<p>insertion en cours…";
@@ -83,3 +92,9 @@ foreach($Donnees["features"] as $s) {
 
 echo " fini !\n";
 ?>
+
+<h1>Technique</h1>
+<p>La base a été mise à jour avec la requête suivante :
+<pre><code><?php echo securise($query); ?></code></pre>
+</body>
+</html>

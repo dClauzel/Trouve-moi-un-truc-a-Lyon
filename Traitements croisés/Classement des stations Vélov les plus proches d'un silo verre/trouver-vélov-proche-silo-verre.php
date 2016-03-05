@@ -34,7 +34,7 @@ JOIN
 	GLsilosVerre
 ON
 	-- on restreint la recherche aux silos verre dans un rayon de 100 mètres autour de chaque station vélov 
-	ST_Dwithin(VelovStations.geom, GLsilosVerre.geom, 100)
+	ST_Dwithin(VelovStations.geom, GLsilosVerre.geom, 500)
 
 ORDER BY ST_Distance
 LIMIT 10 ;

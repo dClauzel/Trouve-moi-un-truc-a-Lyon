@@ -16,68 +16,67 @@ require_once '../../Ressources/fonctionsGénériques.php';
 <?php 
 
 
-# Configure
+// accès à la base
+
 $BD_table = 'GLsilosVerre';
 
 $dbconn = pg_connect("host=$BD_host dbname=$BD_base user=$BD_user password=$BD_passwd")
 	or die('Impossible de se connecter à la base : ' . pg_last_error());
 
 $query = "SELECT
-	type,
-	gml_id,
 	commune,
+	codepostal,
 	voie,
 	numerodansvoie,
 	gestionnaire,
 	observation,
+	identifiant,
+	codeinsee,
 	gid,
-	miseajourattributs,
-	miseajourgeometrie,
-	ST_Y(ST_Transform(geom,4326)),
-	ST_X(ST_Transform(geom,4326)),
-	ST_Distance( ST_Transform(ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), 3857), ST_GeomFromEWKB(geom) )
+	ST_Y(geom),
+	ST_X(geom),
+	ST_Distance( ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), ST_GeomFromEWKB(geom) )
 FROM $BD_table
 
 ORDER BY ST_Distance
 LIMIT 3 ;
 ";
 
-$resultat = pg_query($dbconn, $query);
+$resultat = pg_query($dbconn, $query)
+	or die('Impossible de récupérer les données : ' . pg_last_error());
 
 ?>
 
 <table>
 <caption><?php echo "Les ".pg_num_rows($resultat)." silos verres les plus proche"; ?></caption>
 <tr>
-	<th>type</th>
-	<th>gml_id</th>
 	<th>commune</th>
+	<th>code postal</th>
 	<th>voie</th>
 	<th>numéro dans voie</th>
-	<th>latitude, longitude</th>
-	<th>distance</th>
 	<th>gestionnaire</th>
 	<th>observation</th>
+	<th>identifiant</th>
+	<th>code INSEE</th>
 	<th>gid</th>
-	<th>mise à jour des attributs</th>
-	<th>mise à jour de la géométrie</th>
+	<th>latitude, longitude</th>
+	<th>distance</th>
 </tr>
 
 <?php
 while ($ligne = pg_fetch_array($resultat)) {
 	echo "<tr>";
-	echo "<td>" .securise($ligne['type']). "</td>";
-	echo "<td>" .securise($ligne['gml_id']). "</td>";
 	echo "<td>" .securise($ligne['commune']). "</td>";
+	echo "<td>" .securise($ligne['codepostal']). "</td>";
 	echo "<td>" .securise($ligne['voie']). "</td>";
 	echo "<td>" .securise($ligne['numerodansvoie']). "</td>";
-	echo "<td>" .securise($ligne['st_y']. ", " .$ligne['st_x']). "</td>";
-	echo "<td>" .securise($ligne['st_distance']). "</td>";
 	echo "<td>" .securise($ligne['gestionnaire']). "</td>";
 	echo "<td>" .securise($ligne['observation']). "</td>";
+	echo "<td>" .securise($ligne['identifiant']). "</td>";
+	echo "<td>" .securise($ligne['codeinsee']). "</td>";
 	echo "<td>" .securise($ligne['gid']). "</td>";
-	echo "<td>" .securise($ligne['miseajourattributs']). "</td>";
-	echo "<td>" .securise($ligne['miseajourgeometrie']). "</td>";
+	echo "<td>" .securise($ligne['st_y']. ", " .$ligne['st_x']). "</td>";
+	echo "<td>" .securise($ligne['st_distance']). "</td>";
 	echo "</tr>\n";
 }
 ?>

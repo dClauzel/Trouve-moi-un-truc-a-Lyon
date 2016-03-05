@@ -11,12 +11,20 @@
 require_once '../config.php';
 require_once '../Ressources/fonctionsGénériques.php';
 
-$BD_table = 'velovStations';
-	
-// récupération des données de JCDecaux
-$DonneesVelov = json_decode(file_get_contents("https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=$JCDecaux"), true);
+echo "<p>Récupération des données. Attention, c'est long.\n";
+ob_flush(); flush();
 
-if( $DonneesVelov === FALSE )
+// récupération des données de JCDecaux
+// fiche : https://developer.jcdecaux.com/#/opendata/vls?page=dynamic&contract=Lyon
+
+$sourceDonnees = "https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=$JCDecaux";
+$Donnees = json_decode(file_get_contents($sourceDonnees), true);
+
+// accès à la base
+
+$BD_table = 'velovStations';
+
+if( $Donnees === FALSE )
 	die('Impossible de récupérer la liste des stations Vélov depuis JCDecaux.');
 else
 	$dbconn = pg_connect("host=$BD_host dbname=$BD_base user=$BD_user password=$BD_passwd")
@@ -28,11 +36,11 @@ ob_flush(); flush();
 // suppression des anciennes données
 $query = "DROP TABLE IF EXISTS $BD_table";
 pg_query($dbconn, $query)
-		or die('Impossible de droper la base : ' . pg_last_error());
+	or die("Impossible de droper la base : " . pg_last_error());
 
 $query = "DROP INDEX IF EXISTS ".$BD_table."_index;";
 pg_query($dbconn, $query)
-		or die('Impossible de droper l\'index : ' . pg_last_error());
+	or die("Impossible de droper l'index : " . pg_last_error());
 
 // création de la structure
 $query = "CREATE TABLE $BD_table (
@@ -54,13 +62,13 @@ $query = "CREATE TABLE $BD_table (
 CREATE INDEX ".$BD_table."_index ON $BD_table USING gist (geom);
 ";
 pg_query($dbconn, $query)
-		or die('Impossible de créer la table : ' . pg_last_error());
+	or die('Impossible de créer la table : ' . pg_last_error());
 
 echo "<p>insertion en cours…";
 ob_flush(); flush();
 
 // insertion
-foreach($DonneesVelov as $s) {
+foreach($Donnees as $s) {
 
 	//	nettoyage des données de JCDecaux
 	$number		= $s['number'];
@@ -86,6 +94,7 @@ foreach($DonneesVelov as $s) {
 }
 
 echo " fini !\n";
+ob_flush(); flush();
 ?>
 
 <h1>Technique</h1>

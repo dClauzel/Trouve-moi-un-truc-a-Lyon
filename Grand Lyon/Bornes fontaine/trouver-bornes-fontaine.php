@@ -16,39 +16,38 @@ require_once '../../Ressources/fonctionsGénériques.php';
 <?php 
 
 
-# Configure
+// accès à la base
+
 $BD_table = 'GLbornesFontaines';
 
 $dbconn = pg_connect("host=$BD_host dbname=$BD_base user=$BD_user password=$BD_passwd")
 	or die('Impossible de se connecter à la base : ' . pg_last_error());
 
 $query = "SELECT
-	type,
-	gml_id,
 	nom,
 	gestionnaire,
 	anneepose,
 	gid,
-	ST_Y(ST_Transform(geom,4326)),
-	ST_X(ST_Transform(geom,4326)),
-	ST_Distance( ST_Transform(ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), 3857), ST_GeomFromEWKB(geom) )
+	ST_Y(geom),
+	ST_X(geom),
+	ST_Distance( ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), ST_GeomFromEWKB(geom) )
 FROM $BD_table
 
 ORDER BY ST_Distance
 LIMIT 3 ;
 ";
 
-$resultat = pg_query($dbconn, $query);
+$resultat = pg_query($dbconn, $query)
+	or die('Impossible de récupérer les données : ' . pg_last_error());
 
 ?>
 
 <table>
 <caption><?php echo "Les ".pg_num_rows($resultat)." bornes fontaines les plus proche"; ?></caption>
 <tr>
-	<th>type</th>
-	<th>gml_id</th>
 	<th>nom</th>
 	<th>gestionnaire</th>
+	<th>année de pose</th>
 	<th>latitude, longitude</th>
 	<th>distance</th>
 	<th>gid</th>
@@ -57,10 +56,9 @@ $resultat = pg_query($dbconn, $query);
 <?php
 while ($ligne = pg_fetch_array($resultat)) {
 	echo "<tr>";
-	echo "<td>" .securise($ligne['type']). "</td>";
-	echo "<td>" .securise($ligne['gml_id']). "</td>";
 	echo "<td>" .securise($ligne['nom']). "</td>";
 	echo "<td>" .securise($ligne['gestionnaire']). "</td>";
+	echo "<td>" .securise($ligne['anneepose']). "</td>";
 	echo "<td>" .securise($ligne['st_y']. ", " .$ligne['st_x']). "</td>";
 	echo "<td>" .securise($ligne['st_distance']). "</td>";
 	echo "<td>" .securise($ligne['gid']). "</td>";

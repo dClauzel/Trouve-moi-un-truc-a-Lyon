@@ -3,78 +3,89 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
     <title>Trouve-moi un truc à Lyon by dClauzel</title>
   </head>
 
   <body>
-    <header>
+    <div id="container">
       <div class="inner">
-        <h1>Trouve-moi un truc à Lyon</h1>
-        <h2>Démonstrateur utilisant les données ouvertes à Lyon</h2>
-        <a href="https://github.com/dClauzel/Trouve-moi-un-truc-a-Lyon" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
+        <header>
+          <h1>Trouve-moi un truc à Lyon</h1>
+          <h2>Démonstrateur utilisant les données ouvertes à Lyon</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/dClauzel/Trouve-moi-un-truc-a-Lyon/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/dClauzel/Trouve-moi-un-truc-a-Lyon/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/dClauzel/Trouve-moi-un-truc-a-Lyon" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
           <h1>
-<a name="trouve-moi-un-truc--lyon" class="anchor" href="#trouve-moi-un-truc--lyon"><span class="octicon octicon-link"></span></a>Trouve-moi un truc à Lyon</h1>
+<a id="trouve-moi-un-truc-à-lyon" class="anchor" href="#trouve-moi-un-truc-%C3%A0-lyon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Trouve-moi un truc à Lyon</h1>
 
 <p>Démonstrateur utilisant les données ouvertes :</p>
 
 <ul>
 <li>de JCDecaux, pour les vélos en libre service ;</li>
 <li>du Grand Lyon, pour les données urbaines.</li>
-</ul><p>Le démonstrateur s'appuie sur :</p>
+</ul>
+
+<p>Le démonstrateur s’appuie sur :</p>
 
 <ul>
 <li>les <a href="https://developer.JCDecaux.com/#/opendata/">API de JCDecaux</a>, pour les vélos en libre service ;</li>
 <li>les <a href="http://catalogue.data.GrandLyon.com/">API du Grand Lyon</a>, pour les données urbaines ;</li>
-<li>les <a href="https://developers.google.com/maps/documentation/javascript/reference">API javaScript de Google Maps</a>, pour l'affichage.</li>
-</ul><p>Il existe une <a href="https://serveur.clauzel.eu/%7Eltp/Trouve-moi%20un%20truc%20%C3%A0%20Lyon/">instance d'exemple</a> (sur IPv6).</p>
+<li>les <a href="https://developers.google.com/maps/documentation/javascript/reference">API javaScript de Google Maps</a>, pour l’affichage.</li>
+</ul>
+
+<p>Il existe une <a href="https://serveur.clauzel.eu/%7Eltp/Trouve-moi%20un%20truc%20%C3%A0%20Lyon/">instance d’exemple</a> (sur IPv6).</p>
 
 <h1>
-<a name="prrequis" class="anchor" href="#prrequis"><span class="octicon octicon-link"></span></a>Prérequis</h1>
+<a id="prérequis" class="anchor" href="#pr%C3%A9requis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prérequis</h1>
 
 <p>Prérequis côté serveur :</p>
 
 <ul>
 <li>serveur web ;</li>
-<li>
-<a href="http://www.gdal.org/">ogr2ogr de GDAL</a> (<a>paquet gdal-bin sur Debian</a>) ;</li>
-<li>php &gt;= 5.4, avec possibilité d'exécuter des commandes externes ;</li>
-<li>postgis &gt;= 1.5, avec postgresql &gt;= 9.1 (<a>paquet postgresql-9.1-postgis sur Debian</a>).</li>
-</ul><p>Prérequis côté client :</p>
+<li>php &gt;= 5.4 ;</li>
+<li>postgis &gt;= 1.5, avec postgresql &gt;= 9.1 (paquet postgresql-9.1-postgis sur Debian).</li>
+</ul>
+
+<p>Prérequis côté client :</p>
 
 <ul>
 <li>navigateur web à jour ;</li>
 <li>avoir activé javascript ;</li>
 <li>avoir activé la géolocalisation.</li>
-</ul><p>Développé avec :</p>
+</ul>
+
+<p>Développé avec :</p>
 
 <ul>
-<li>apache 2.2.22 ;</li>
-<li>php 5.4.4 ;</li>
+<li>apache &gt; 2.2.22 ;</li>
+<li>php &gt; 5.4.4 ;</li>
 <li>gdal 1.9.0 ;</li>
-<li>postgresql 9.1 et postgis 1.5 ;</li>
-<li>chromium 26.0.1410.43, Firefox 22.0a2.</li>
-</ul><h1>
-<a name="dployer-les-outils-sur-son-serveur" class="anchor" href="#dployer-les-outils-sur-son-serveur"><span class="octicon octicon-link"></span></a>Déployer les outils sur son serveur</h1>
+<li>postgresql &gt; 9.1 et postgis &gt; 1.5 ;</li>
+<li>chromium &gt; 26.0.1410.43, Firefox &gt; 22.0a2.</li>
+</ul>
+
+<h1>
+<a id="déployer-les-outils-sur-son-serveur" class="anchor" href="#d%C3%A9ployer-les-outils-sur-son-serveur" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Déployer les outils sur son serveur</h1>
 
 <p>Pour cloner le démonstrateur, vous <strong>DEVEZ</strong> renseigner un fichier de configuration « config.php », contenant vos clés des API et les accès à la base de données.</p>
 
-<p>Certains outils utilisent des requêtes sql qui peuvent prendre un certain temps à se terminer. Il est alors possible que les PHP timeout. Si c'est le cas, ajustez les configurations d'apache et de PHP :</p>
+<p>Certains outils utilisent des requêtes sql qui peuvent prendre un certain temps à se terminer. Il est alors possible que les PHP timeout. Si c’est le cas, ajustez les configurations d’apache et de PHP :</p>
 
 <ul>
 <li>dans php.ini : max_execution_time = 600</li>
@@ -88,35 +99,34 @@
 <li>FcgidIdleTimeout 600</li>
 </ul>
 </li>
-</ul><h1>
-<a name="cration-de-base-et-de-lutilisateur-postgresql" class="anchor" href="#cration-de-base-et-de-lutilisateur-postgresql"><span class="octicon octicon-link"></span></a>Création de base et de l'utilisateur postgresql</h1>
-
-<p><a href="http://marcusjenkins.com/linux/install-postgresql-9-1-and-postgis-1-5-x-on-ubuntu-11-10/">Procédure pour Debian</a></p>
+</ul>
 
 <h1>
-<a name="licence" class="anchor" href="#licence"><span class="octicon octicon-link"></span></a>Licence</h1>
+<a id="création-de-base-et-de-lutilisateur-postgresql" class="anchor" href="#cr%C3%A9ation-de-base-et-de-lutilisateur-postgresql" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Création de base et de l’utilisateur postgresql</h1>
 
-<p>Par <a href="http://Damien.Clauzel.eu">Damien Clauzel</a>, <a href="https://Twitter.com/dClauzel">@dClauzel</a>, sous licence GPLv3.</p>
+<pre><code>CREATE USER marmotte WITH PASSWORD 'papier d’alu';
+CREATE DATABASE MaTablePourTravaillerAvecLesDonnées;
+GRANT ALL PRIVILEGES ON DATABASE MaTablePourTravaillerAvecLesDonnées to marmotte;
+
+CREATE EXTENSION postgis;
+CREATE EXTENSION postgis_topology;
+CREATE EXTENSION address_standardizer;
+CREATE EXTENSION fuzzystrmatch;
+CREATE EXTENSION postgis_tiger_geocoder;
+</code></pre>
+
+<h1>
+<a id="licence" class="anchor" href="#licence" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Licence</h1>
+
+<p>Par <a href="https://Damien.Clauzel.eu">Damien Clauzel</a>, <a href="https://Twitter.com/dClauzel">@dClauzel</a>, sous licence GPLv3.</p>
         </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/dClauzel/Trouve-moi-un-truc-a-Lyon/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/dClauzel/Trouve-moi-un-truc-a-Lyon/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+        <footer>
+          Trouve-moi un truc à Lyon is maintained by <a href="https://github.com/dClauzel">dClauzel</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
 
-          <p class="repo-owner"><a href="https://github.com/dClauzel/Trouve-moi-un-truc-a-Lyon"></a> is maintained by <a href="https://github.com/dClauzel">dClauzel</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
-
-            <script type="text/javascript">
+                  <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -127,5 +137,7 @@
             } catch(err) {}
           </script>
 
+      </div>
+    </div>
   </body>
 </html>

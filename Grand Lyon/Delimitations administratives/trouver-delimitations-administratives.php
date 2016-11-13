@@ -5,7 +5,7 @@ require_once '../../Ressources/fonctionsGénériques.php';
 <!doctype html>
 <html>
 <head>
-	<title>Trouver les corbeilles de rue</title>
+	<title>Trouver les délimitations administratives</title>
 	<meta charset='utf-8'>
 	<meta name='viewport' content='initial-scale=1.0, user-scalable=no'>
 	<script type='text/javascript' src='//maps.googleapis.com/maps/api/js?key=<?php echo $Google; ?>&sensor=true'></script>
@@ -16,65 +16,57 @@ require_once '../../Ressources/fonctionsGénériques.php';
 <?php 
 
 
-// accès à la base
-
-$BD_table = 'GLcorbeillesRue';
+# Configure
+$BD_table = 'GLlimitesAdministratives';
 
 $dbconn = pg_connect("host=$BD_host dbname=$BD_base user=$BD_user password=$BD_passwd")
 	or die('Impossible de se connecter à la base : ' . pg_last_error());
 
 $query = "SELECT
 	type,
-	commune,
-	voie,
-	numerodansvoie,
-	gestionnaire,
-	observation,
-	identifiant,
+	gml_id,
+	genre,
+	insee1,
+	insee2,
 	gid,
-	ST_Y(geom),
-	ST_X(geom),
-	ST_Distance( ST_SetSRID(ST_MakePoint($longitude , $latitude), 4326), geom )
+	ST_AsText(
+		  geom
+	)
 FROM $BD_table
 
-ORDER BY ST_Distance
-LIMIT 3 ;
+where genre = 'Département'
+
+ORDER BY insee1 ;
 ";
 
-$resultat = pg_query($dbconn, $query)
-	or die('Impossible de récupérer les données : ' . pg_last_error());
+$resultat = pg_query($dbconn, $query);
 
 ?>
 
 <table>
-<caption><?php echo "Les ".pg_num_rows($resultat)." corbeilles de rue les plus proche"; ?></caption>
+<caption><?php echo "Les ".pg_num_rows($resultat)." délimitations administratives du Grand Lyon"; ?></caption>
 <tr>
 	<th>type</th>
-	<th>commune</th>
-	<th>voie</th>
-	<th>numéro dans voie</th>
-	<th>latitude, longitude</th>
-	<th>distance</th>
-	<th>gestionnaire</th>
-	<th>observation</th>
-	<th>identifiant</th>
+	<th>gml_id</th>
+	<th>genre</th>
+	<th>insee1</th>
+	<th>insee2</th>
 	<th>gid</th>
+	<th>geom</th>
 </tr>
 
 <?php
 while ($ligne = pg_fetch_array($resultat)) {
 	echo "<tr>";
 	echo "<td>" .securise($ligne['type']). "</td>";
-	echo "<td>" .securise($ligne['commune']). "</td>";
-	echo "<td>" .securise($ligne['voie']). "</td>";
-	echo "<td>" .securise($ligne['numerodansvoie']). "</td>";
-	echo "<td>" .securise($ligne['st_y']. ", " .$ligne['st_x']). "</td>";
-	echo "<td>" .securise($ligne['st_distance']). "</td>";
-	echo "<td>" .securise($ligne['gestionnaire']). "</td>";
-	echo "<td>" .securise($ligne['observation']). "</td>";
-	echo "<td>" .securise($ligne['identifiant']). "</td>";
+	echo "<td>" .securise($ligne['gml_id']). "</td>";
+	echo "<td>" .securise($ligne['genre']). "</td>";
+	echo "<td>" .securise($ligne['insee1']). "</td>";
+	echo "<td>" .securise($ligne['insee2']). "</td>";
 	echo "<td>" .securise($ligne['gid']). "</td>";
+	//echo "<td>" .securise($ligne['st_astext']). "</td>";
 	echo "</tr>\n";
+
 }
 ?>
 
@@ -94,15 +86,56 @@ var mapOptions = {
 
 var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 <?php
+
 pg_result_seek($resultat, 0);
 while ($ligne = pg_fetch_array($resultat)) {
-	echo "var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(" .$ligne['st_y']. "," .$ligne['st_x']. "),
-		map: map,
-		title:'" .securise($ligne['voie']). ", " .securise($ligne['numerodansvoie']). "'
-		});\n";
+
+	/* Extraction des points de la délimitation administrative :
+	 * 1) blindage de la chaîne
+	 * 2) suppression à droite de "))"
+	 * 3) suppression à gauche de "POLYGON(("
+	 * 4) explosion en tableau pour moulinage
+	 */
+	$polygonePoints = explode(
+		"," ,
+		ltrim(
+			rtrim(
+					securise($ligne['st_astext']),
+					"))"
+			),
+			"POLYGON((")
+	);
+
+	$taillePolygone = count($polygonePoints);	
+	$i = 1;
+
+	echo "var polygonePoints = [\n";
+	foreach($polygonePoints as $point) {
+		$p = explode(" ", $point);
+		echo "new google.maps.LatLng(" .$p[1]. "," .$p[0]. ")";
+		if($i < $taillePolygone)
+			echo ",\n";
+		else
+			echo "\n";
+		$i++;
+	}
+	echo "];\n";
+
+	echo "var delimitationAdministrative = new google.maps.Polygon({
+		paths: polygonePoints,
+		strokeColor: '#FF0000',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#FF0000',
+		fillOpacity: 0.35
+	});\n";
+
+	echo "delimitationAdministrative.setMap(map);\n";
 }
+
+
 ?>
+
 // Marqueur bleu pour dire où on est
 blueIcon = '//www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
 
@@ -112,6 +145,7 @@ var marker = new google.maps.Marker({
 	icon: blueIcon,
 	title: 'Je suis ici'
 });
+
 } // fin initialize()
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>

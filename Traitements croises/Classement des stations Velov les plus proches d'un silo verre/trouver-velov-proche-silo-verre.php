@@ -26,15 +26,15 @@ $query = "SELECT
 	ST_X(ST_Transform(velovStations.geom,4326)),
 	GLSilosVerre.voie,
 	GLSilosVerre.numerodansvoie,
-	ST_Distance( ST_GeomFromEWKB(velovStations.geom), ST_GeomFromEWKB(GLSilosVerre.geom) )
+	ST_Distance( ST_Transform(velovStations.geom, 4326), ST_Transform(GLSilosVerre.geom, 4326 ) )
 
 FROM
 	VelovStations
 JOIN
 	GLsilosVerre
 ON
-	-- on restreint la recherche aux silos verre dans un rayon de 100 mètres autour de chaque station vélov 
-	ST_Dwithin(VelovStations.geom, GLsilosVerre.geom, 500)
+	-- on restreint la recherche aux silos verre dans un rayon de 500 mètres autour de chaque station vélov 
+	ST_Dwithin(ST_Transform(velovStations.geom, 4326), ST_Transform(GLSilosVerre.geom, 4326 ), 500)
 
 ORDER BY ST_Distance
 LIMIT 10 ;

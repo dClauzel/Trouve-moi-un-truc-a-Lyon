@@ -52,10 +52,18 @@ Certains outils utilisent des requêtes sql qui peuvent prendre un certain temps
 Création de base et de l'utilisateur postgresql
 ===============================================
 
-[Procédure pour Debian](http://marcusjenkins.com/linux/install-postgresql-9-1-and-postgis-1-5-x-on-ubuntu-11-10/)
+	CREATE USER opendata69 WITH PASSWORD 'Mon mot de passe défini dans le fichier config.php';
+	CREATE DATABASE opendata69;
+	GRANT ALL PRIVILEGES ON DATABASE opendata69 to opendata69;
 
+	CREATE EXTENSION postgis;"
+	CREATE EXTENSION postgis_topology;"
+	CREATE EXTENSION address_standardizer;"
+	CREATE EXTENSION fuzzystrmatch;"
+	CREATE EXTENSION postgis_tiger_geocoder;"
+	
 
 Licence
 =======
 
-Par [Damien Clauzel](http://Damien.Clauzel.eu), [@dClauzel](https://Twitter.com/dClauzel), sous licence GPLv3.
+Par [Damien Clauzel](https://Damien.Clauzel.eu), [@dClauzel](https://Twitter.com/dClauzel), sous licence GPLv3.

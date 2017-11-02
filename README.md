@@ -12,7 +12,7 @@ Le démonstrateur s’appuie sur :
 * les [API du Grand Lyon](http://catalogue.data.GrandLyon.com/), pour les données urbaines ;
 * les [API javaScript de Google Maps](https://developers.google.com/maps/documentation/javascript/reference), pour l’affichage.
 
-Il existe une [instance d’exemple](https://serveur.clauzel.eu/~ltp/Trouve-moi un truc à Lyon/) (sur IPv6).
+Il existe une [instance d’exemple](https://serveur.clauzel.eu/~ltp/Trouve-moi%20un%20truc%20à%20Lyon/) (sur IPv6).
 
 Prérequis
 =========
@@ -37,6 +37,8 @@ Développé avec :
 * postgresql > 9.1 et postgis > 1.5 ;
 * chromium > 26.0.1410.43, Firefox > 22.0a2.
 
+Testé avec apache 2.4.29, php 7.0.22, gdal 2.2.2, postgresql 10.0, postgis 2.4.1, chrome 62
+
 Déployer les outils sur son serveur
 ===================================
 
@@ -56,16 +58,21 @@ Certains outils utilisent des requêtes sql qui peuvent prendre un certain temps
 Création de base et de l’utilisateur postgresql
 ===============================================
 
+	sudo su postgres
+	psql
+	
 	CREATE USER marmotte WITH PASSWORD 'papier d’alu';
 	CREATE DATABASE MaTablePourTravaillerAvecLesDonnées;
-	GRANT ALL PRIVILEGES ON DATABASE MaTablePourTravaillerAvecLesDonnées to marmotte;
-
+	GRANT ALL PRIVILEGES ON DATABASE MaTablePourTravaillerAvecLesDonnées TO marmotte;
+	
+	\connect marmotte
+	
 	CREATE EXTENSION postgis;
 	CREATE EXTENSION postgis_topology;
 	CREATE EXTENSION address_standardizer;
 	CREATE EXTENSION fuzzystrmatch;
 	CREATE EXTENSION postgis_tiger_geocoder;
-	
+
 
 Licence
 =======
